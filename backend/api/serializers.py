@@ -1,4 +1,4 @@
-from api.models import User, Profile, Patient
+from api.models import User, Profile, Patient, PatientRecords
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -18,7 +18,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['role']= user.role
         token['username']= user.username
         token['email']= user.email
-        token['verified']= user.profile.verified
+        # token['verified']= user.profile.verified
 
         return token
     
@@ -57,5 +57,14 @@ class PatientSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 
+class PatientRecordsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=PatientRecords
+        fields= '__all__'
+
     
+class PatientDropSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Patient
+        fields=['patientId','patientName','doctorName']
     

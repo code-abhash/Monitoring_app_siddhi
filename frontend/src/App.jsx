@@ -75,7 +75,7 @@ import Settings from './components/Settings';
 import Disease from './components/Disease/Disease';
 import PRecords from './components/PRecords/PRecords';
 import { AuthProvider } from '../Auth_contxt/Authcontext';
-
+import PatientForm from './components/VitalsEntry/PatientRecords';
 function App() {
   return (<Router>
     <AuthProvider> {/* Wrap your entire application with AuthProvider */}
@@ -88,6 +88,7 @@ function App() {
           <Route path="/nurse" element={<Dataentry />} />
           <Route path="/home" element={<Home />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/patientform" element={<PatientForm />} />
           <Route path="/patients" element={<Patients />} />
           <Route path="/PRecords" element={<PRecords />} />
           <Route path="/disease" element={<Disease />} />

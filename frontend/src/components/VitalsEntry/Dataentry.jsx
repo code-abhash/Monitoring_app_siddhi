@@ -249,6 +249,9 @@ import SPO2Slider from "./SPO2Button";
 import SystolicBPSlider from "./SystolicBPButton";
 import DiastolicBPSlider from "./DiastolicBPButton";
 import Infobutton from "../Infobutton/Infobutton";
+import Panel from "../Home/Panel";
+import axios from "axios";
+import Footer from "../Footer"
 
 
 function Dataentry() {
@@ -271,79 +274,51 @@ function Dataentry() {
     e.preventDefault();
     
     const formData = {
-      patientName,
-      patientId,
-      doctorName,
-      appointmentDate,
-      appointmentTime,
-      heartRate,
-      diastolicBP,
-      systolicBP,
-      bodyTemp,
-      spo2Value,    
-
+      patientId: patientId,
+      appointmentDate: appointmentDate,
+      appointmentTime: appointmentTime,
+      heartRate: heartRate,
+      diastolicBP: diastolicBP,
+      systolicBP: systolicBP,
+      bodyTemp: bodyTemp,
+      spo2Value: spo2Value,
     };
-    console.log(formData)
+
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/patientslist/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to submit data: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log('Data submitted successfully:', data);
-      alert('Data submitted successfully');
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/patientrecords/",
+        formData
+      );
+      console.log("Data submitted successfully:", response.data);
+      alert("Data submitted successfully");
       navigate("/home");
     } catch (error) {
-      console.error('Error submitting data:', error);
-      alert('Failed to submit data');}
-
+      if (error.response) {
+        console.error("Error submitting data:", error.response.data);
+        alert("Failed to submit data: " + error.response.data.detail);
+      } else {
+        console.error("Error submitting data:", error.message);
+        alert("Failed to submit data: " + error.message);
+      }
     }
+
+    // try {
+    //   const response = await axios.post(
+    //     "http://127.0.0.1:8000/api/patientsrecordlist/",
+    //     formData
+    //   );
+    //   console.log("Data submitted successfully:", response.data);
+    //   alert("Data submitted successfully");
+    //   navigate("/home");
+    // } catch (error) {
+    //   console.error("Error submitting data:", error);
+    //   alert("Failed to submit data");
+    // }
+
+  }
     
-  //   try {
-  //     const response = await axios.post('http://127.0.0.1:8000/api/patientslistview/', JSON.stringify(formData), {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     console.log('Data submitted successfully:', response.data);
-  //     alert('Data submitted successfully');
-  //     navigate("/home");
-  //   } catch (error) {
-  //     console.error('Error submitting data:', error);
-  //     alert('Failed to submit data');
-  //   }
-  // };
+ 
 
-  //   try {
-  //     const response = await fetch("http://127.0.0.1:8000/api/patientslistview/", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to submit data");
-  //     }
-
-  //     const responseData = await response.json();
-  //     console.log("Data submitted successfully:", responseData);
-  //     alert("Data submitted successfully");
-  //     navigate("/home");
-  //   } catch (error) {
-  //     console.error("Error submitting data:", error);
-  //     alert("Failed to submit data");
-  //   }
-  // };
 
   const cancelVal = (e) => {
     e.preventDefault();
@@ -366,12 +341,20 @@ function Dataentry() {
   const getsystolicBP=(data)=>{
     setSystolicBP(data)
   }
+  const handlePatientSelect = (patient) => {
+    setPatientId(patient.patientId);
+    setPatientName(patient.patientName)
+    setDoctorName(patient.doctorName)
+    // You can perform additional actions here with the selected patient ID
+    //console.log("Selected Patient ID:", patientId);
+  };
+
 
   return (
     <>
       <Navbar />
       <div className="bg-gray-50">
-        <form className="" onSubmit={submitVal}>
+      
           <div className="space-y-12 mr-5 ml-5">
             <div className="border-b border-gray-900/10 pb-12">
               <div className="flex flex-row justify-between">
@@ -403,9 +386,9 @@ function Dataentry() {
                  -ex : 12345678`}
                     />
                   </label>
-                  <div className="mt-2">
+                  <div className="mt-2"><Panel onPatientSelect={handlePatientSelect}/>
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      <input
+                      {/* <input
                         type="text"
                         name="username"
                         id="username"
@@ -414,7 +397,7 @@ function Dataentry() {
                         placeholder="Enter Patient ID"
                         value={patientId}
                         onChange={(e) => setPatientId(e.target.value)}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>
@@ -429,7 +412,7 @@ function Dataentry() {
                       message={`Enter the name of patient
                    -ex: Aarav Sharma`}
                     />
-                  </label>
+                  </label><p className="font-bold"></p>
                   <div className="mt-2 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-900 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                     <input
                       type="text"
@@ -440,6 +423,7 @@ function Dataentry() {
                       placeholder="Enter Patient Name"
                       value={patientName}
                       onChange={(e) => setPatientName(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -456,7 +440,7 @@ function Dataentry() {
                   Doctor's Name{" "}
                   <Infobutton message="Enter the name of doctor under whom the patient is being supervised -ex: Dr. Vivek Patel" />
                 </label>
-                <div className="mt-2">
+                <div className="mt-2 font-bold">
                   <input
                     id="doctor_name"
                     name="doctor_name"
@@ -465,7 +449,9 @@ function Dataentry() {
                     placeholder="Enter Doctor's Name"
                     value={doctorName}
                     onChange={(e) => setDoctorName(e.target.value)}
+                    required
                   />
+                  
                 </div>
               </div>
 
@@ -486,6 +472,7 @@ function Dataentry() {
                     className="ent_clr block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={appointmentDate}
                     onChange={(e) => setAppointmentDate(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -507,6 +494,7 @@ function Dataentry() {
                     className="ent_clr block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={appointmentTime}
                     onChange={(e) => setAppointmentTime(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -549,11 +537,14 @@ function Dataentry() {
             <button
               type="submit"
               className="rounded-md bg-green-600 m-20 ml-0 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
+              onClick={submitVal}
+              >
               Submit
             </button>
           </div>
-        </form>
+          
+          <Footer/>
+        
       </div>
     </>
   );

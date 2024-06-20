@@ -75,10 +75,10 @@ const Navbar = () => {
               Data Entry
             </NavLink>
             <NavLink
-              to="/settings"
+              to="/patientform"
               className="pl-5 pr-5 font-bold hover:underline rounded"
             >
-              Settings
+              Patient-Details
             </NavLink>
           </div>
           <div
