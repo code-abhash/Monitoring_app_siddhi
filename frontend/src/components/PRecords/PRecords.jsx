@@ -6,7 +6,7 @@ import  Footer from '../Footer';
 
 const PRecords = () => {
   return (
-    <div className='flex flex-col gap-1 bg-gray-50'>
+    <div className='flex font-roboto flex-col gap-1 bg-gray-50'>
         <Navbar/>
         <Records/>
         <Footer/>

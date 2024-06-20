@@ -21,7 +21,7 @@ input[type='number'] {
 
 
 const DiastolicBPButton = (props) => {
-  const [diastolicBP, setDiastolicBP] = useState(60); // Default to average normal diastolic BP
+  const [diastolicBP, setDiastolicBP] = useState(80); // Default to average normal diastolic BP
   props.getdiastolicBP(diastolicBP)
   // Function to handle slider change
   const handleSliderChange = (event) => {
@@ -35,7 +35,7 @@ const DiastolicBPButton = (props) => {
   };
 
   return (
-    <div className="sm:col-span-3  p-4 rounded-xl shadow-lg">
+    <div className="sm:col-span-3 font-roboto  p-4 rounded-xl shadow-lg">
       <style>{arrowStyles}</style>
       <label
         htmlFor="diastolic-bp"

@@ -9,7 +9,7 @@ const Infobutton = ({message}) => {
 
 
   return (
-  <div className="relative inline-block">
+  <div className="relative font-roboto inline-block">
       <button
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
