@@ -13,10 +13,10 @@ export default {
         'mycolor': '#01ee91',
         'trh':'rgba(232,232,232,0.638)', 
       },
-      fontFamily:{
-        'display':['Poppins','sans-serif'],
-        'body':['Inter','sans-serif']
+      fontFamily: {
+        'roboto': ['Roboto', 'sans-serif'],
       }
+  
   },
   plugins: [
     require('@tailwindcss/forms'), 

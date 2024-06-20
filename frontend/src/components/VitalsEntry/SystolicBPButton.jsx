@@ -67,7 +67,7 @@ const SystolicBPButton = (props) => {
       </div>
       <div className="mt-4 text-center">
         <span className="text-xl font-medium text-gray-900">
-          Selected Systolic BP: <span>{systolicBP} mm Hg</span>
+          Selected Systolic BP: <span className="text-indigo-600">{systolicBP} mm Hg</span>
         </span>
       </div>
     </div>

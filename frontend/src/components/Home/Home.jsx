@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col gap-8 home_page bg-gray-50 text-gray-700">
+    <div className="font-roboto flex flex-col gap-8 home_page bg-gray-50 text-gray-700">
       <div className="shadow-md">
         <Navbar />
       </div>

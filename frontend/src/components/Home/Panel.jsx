@@ -306,7 +306,7 @@ const Panel = ({ onPatientSelect }) => {
 
   return (
     <React.Fragment>
-      <div className="flex flex-col sm:flex-row  m-2 space-y-4 sm:space-y-0 sm:space-x-4">
+      <div className="flex font-roboto flex-col sm:flex-row  m-2 space-y-4 sm:space-y-0 sm:space-x-4">
         {/* <button
           className="font-bold bg-blue-600 text-white px-6 py-2 text-lg tracking-wider hover:bg-blue-700 rounded-lg transition duration-300 ease-in-out"
           onClick={() => navigate('/disease')}

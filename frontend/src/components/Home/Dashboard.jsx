@@ -7,7 +7,7 @@ import './Home.css'
 
 const Dashboard = () => {
   return (
-    <div className=' flex flex-col items-center gap-4 sm:flex-row md:gap-4 lg:gap-5 xl:gap-40 w-full p-3'>
+    <div className='font-roboto flex flex-col items-center gap-4 sm:flex-row md:gap-4 lg:gap-5 xl:gap-40 w-full p-3'>
         <BoxDash>
         <div className='flex flex-col w-full dash_col'>
             <div className=' font-bold w-full'>New Patients</div>

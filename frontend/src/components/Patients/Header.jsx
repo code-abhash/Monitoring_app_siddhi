@@ -50,7 +50,7 @@ const Header = ({ patientId }) => {
 
   
   return (
-    <header className="bg-gray-600 p-5 flex justify-between items-center">
+    <header className="bg-gray-600 font-roboto p-5 flex justify-between items-center">
       <div><h1 className="text-white text-2xl font-semibold">#{patientId}</h1></div>
       <div><button className="bg-gray-400 rounded-full p-3">
         <img
