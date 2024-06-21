@@ -12,6 +12,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import img4 from "./img/logo.png";
 import "./Auth.css";
+import Swal from "sweetalert2";
+import "./CustomSwal.css";
 import AuthContext from "../../../Auth_contxt/Authcontext";
 
 const Signup = () => {
@@ -31,16 +33,46 @@ const Signup = () => {
     e.preventDefault()
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[0-9]).{8,}$/;
+    const passwordRegex = /^(?=.*[0-9]).{9,}$/;
 
     if (password !== password2) {
-      setError("Passwords do not match");}
+      // setError("Passwords do not match");}
+      Swal.fire({
+        icon: "error",
+        title: "Password Mismatch",
+        text: "Passwords do not match",
+        position: 'top-right',
+        timer: 3000,
+        customClass: {
+          popup: 'my-swal'
+        }
+      });}
 
     else if (!passwordRegex.test(password)) {
-      setError("Password must be at least 8 characters long and contain at least one number");}
+      // setError("Password must be at least 8 characters long and contain at least one number and one alphabet");}
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must be at least 9 characters long and contain at least one number",
+        position: 'top-right',
+        timer: 3000,
+        customClass: {
+          popup: 'my-swal'
+        }
+      });}
 
     else if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address");}
+      // setError("Please enter a valid email address");}
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email",
+        text: "Please enter a valid email address",
+        position: 'top-right',
+        timer: 3000,
+        customClass: {
+          popup: 'my-swal'
+        }
+      });}
 
     else{
       setError("")
