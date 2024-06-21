@@ -20,6 +20,7 @@ const Signup = () => {
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [error, setError] = useState("");
 
   const {registerUser} = useContext(AuthContext)
 
@@ -28,32 +29,30 @@ const Signup = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    registerUser(email, username, role, password, password2)
-    console.log(email);
-    console.log(username);
-    console.log(role);
-    console.log(password);
-    console.log(password2);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[0-9]).{8,}$/;
+
+    if (password !== password2) {
+      setError("Passwords do not match");}
+
+    else if (!passwordRegex.test(password)) {
+      setError("Password must be at least 8 characters long and contain at least one number");}
+
+    else if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");}
+
+    else{
+      setError("")
+      registerUser(email, username, role, password, password2)
+      console.log(email);
+      console.log(username);
+      console.log(role);
+      console.log(password);
+      console.log(password2);
+    }
   }
 
-  //const navigate = useNavigate();
-  // const checkpassword = () => {
-  //   if (username !== "" && email !== "" && password !== "") {
-  //     if (password === cpassword) {
-  //       console.log(username, password, cpassword, email, role);
-  //       alert("Your account got created");
-  //       if (role === "doctor") {
-  //         navigate("/home");
-  //       }
-  //       if (role === "nurse") {
-  //         navigate("/nurse");
-  //       }
-  //     }
-  //   } else {
-  //     alert("Can't register and enter details properly");
-  //     console.log(username, password, cpassword, email, role);
-  //   }
-  // };
   return (
     <div className="flex flex-col bgimg">
       <center>
@@ -61,11 +60,12 @@ const Signup = () => {
           src={img4}
           alt="logo"
           className="w-auto h-10 m-4 border-2 rounded"
-        ></img>
+        ></img>{error && <div className="alert alert-danger font-bold text-red-700">{error}</div>}
       </center>
       <div className="flex flex-col justify-center items-center   backdrop-filter backdrop-blur-xl border-opacity-30 shadow-lg m-auto  p-5 w-full sm:w-4/5 md:w-4/6 lg:w-2/5  border-2  rounded-3xl ">
         <div className=" font-mono font-bold text-4xl underline">Sign up</div>
         <div className="flex flex-col gap-3 mt-8">
+        
           <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-8">
           <div className="flex justify-around items-center mt-5 w-72 border-transparent  border-2 bg-slate-100 bg-opacity-10 backdrop-filter  backdrop-blur-xl shadow-2xl rounded-lg">
             <input

@@ -66,7 +66,7 @@
 
 // import { BrowserRouter as Router, Routes, Route ,Navigate } from 'react-router-dom';
 // import Login from './components/auth/Login';
-// import Signup from './components/auth/Signup';
+// 
 // import Doctor from './components/Doctor';
 // import Home from './components/Home/Home';
 // import Dataentry from './components/VitalsEntry/Dataentry';
@@ -106,6 +106,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Home/Navbar";
 import Disease from './components/Disease/Disease';
+import Signup from './components/auth/Signup';
 import Home from './components/Home/Home';
 import Patients from './components/Patients/Patients';
 import PRecords from './components/PRecords/PRecords';
@@ -122,6 +123,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/disease" element={<Disease />} />
           <Route 
